@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
+
+namespace test
+
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            IWebDriver driver = new FirefoxDriver();
+            driver.Url = "https://dev.contentder.com/Register";
+            var EmailBox = driver.FindElement(By.Id("lytA_ctl09_Email"));
+            EmailBox.SendKeys("abc@gmail.com");
+            var PasswordBox = driver.FindElement(By.Id("lytA_ctl09_Password"));
+            PasswordBox.SendKeys("1234");
+            //var ChkAccept = driver.FindElement(By.Id("lytA_ctl09_chkAccept"));
+            //ChkAccept.SendKeys("click");
+            IWebElement oCheckBox = driver.FindElement(By.Id("lytA_ctl09_chkAccept"));
+            oCheckBox.Click();
+
+        }
+        public void Fill()
+        {
+
+			IWebDriver driver = new FirefoxDriver();
+			driver.Url = "https://dev.contentder.com/Register";
+			var EmailBox = driver.FindElement(By.Id("lytA_ctl09_Email"));
+			var PasswordBox = driver.FindElement(By.Id("lytA_ctl09_Password"));
+			
+            for (int i = 0; i < 100; i++)
+            {
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                var random = new Random();
+                var result = new string(
+                    Enumerable.Repeat(chars, 8)
+                              .Select(s => s[random.Next(s.Length)])
+                              .ToArray());
+                string email = result + "@gmail.com";
+				EmailBox.SendKeys(email);				
+				PasswordBox.SendKeys("1234");
+				IWebElement oCheckBox = driver.FindElement(By.Id("lytA_ctl09_chkAccept"));
+				oCheckBox.Click();
+				
+            }
+
+
+        }
+    }
+}
